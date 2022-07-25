@@ -1,0 +1,6 @@
+<div class="produit-item text-center">
+    <a href="{{ path('produit',{'slog':produit.slog}) }}" ><img  src="/uploads/{{ produit.illustration }}" alt="{{ produit.name }}" class="img-fluid" class="image"></a>
+    <h5>{{ produit.name }}</h5>
+    <span class="produit-subtitle">{{ produit.subtitle }}</span>
+    <span class="produit-price">{{ (produit.price*10) }}TND</span>
+</div>

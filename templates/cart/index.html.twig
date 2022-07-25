@@ -1,0 +1,66 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}Mon panier!{% endblock %}
+
+{% block content%}
+    <br/>
+<h1> panier</h1>
+    Retrouver vos produits sélectioner ici!
+    {%  if cart|length >0 %}
+
+
+    <table class="table mt-3">
+        <thead>
+        <tr>
+
+            <th scope="col">Produit</th>
+            <th scope="col"></th>
+            <th scope="col">Quantité</th>
+            <th scope="col">Prix</th>
+            <th scope="col">Total</th>
+            <th scope="col"></th>
+        </tr>
+        </thead>
+        <tbody>
+        {% set total = null %}
+        {% for p in cart %}
+
+        <tr>
+            <th> <img src="/uploads/{{ p.product.illustration }}" alt="{{ p.product.name }}" height="75px"><br/></th>
+             <td>
+                 {{ p.product.name }}
+                 <small>{{ p.product.subtitle }}</small>
+             </td>
+            <td>
+                <a href="{{ path('minus_to_cart',{'id':p.product.id}) }}">
+                    <img src="{{ asset('assets/img/minus.png') }}" height="12px" alt="Retirer un produit" ></a>
+                {{ p.quantity }}
+                <a href="{{ path('add_to_cart',{'id':p.product.id}) }}">
+                    <img src="{{ asset('assets/img/plus.png')}}" height="12px" alt="Ajouter un  produit" ></a>
+
+            </td>
+            <td>{{ (p.product.price*10) }}TND</td>
+            <td>{{ (((p.product.price*10)*p.quantity )) }}TND</td>
+            <td>
+                <a href="{{ path('delete_to_cart',{'id':p.product.id}) }}">
+                    <img src="{{ asset('assets/img/trash.png') }}" alt="Supprimer mon produit" >
+                </a>
+
+            </td>
+        </tr>
+            {% set total =(total+(p.product.price*p.quantity)*10) %}
+       {% endfor %}
+        </tbody>
+    </table>
+    <div class="text-right mb-5">
+        <b> Nombre de produit :</b>{{ cart|length }}<br/>
+       <b>Total de mon panier:</b>{{(total) }}TND
+        <a href="{{ path('order') }}" class=" btn btn-success btn-block mt-3">Valider mon panier</a>
+
+    </div>
+    {%  else%}
+        <hr>
+        <p> <b> Votre panier est vide!</b></p>
+    {%  endif%}
+
+{% endblock %}

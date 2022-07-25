@@ -1,0 +1,50 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}Ma Commande!{% endblock %}
+
+{% block content %}
+    <br/>
+    <h1> Ma commande {{ order.reference }}</h1>
+    <a href="{{ path('account') }}"> Retour</a>
+    <hr>
+   <strong>Commande passé le :</strong> {{ order.createdAt|date('d/m/Y') }}  <br/>
+    <strong>Référence de ma commande :</strong> <small>{{ order.reference}}</small>  <br/>
+    <strong> Transporteur choisi :</strong>{{ order.carrierName}}
+    <hr>
+    <strong>Détails:</strong>
+
+    <table class="table">
+        <thead>
+        <tr>
+            <th scope="col">Produit</th>
+            <th scope="col">Quantité</th>
+            <th scope="col">Prix unitaire</th>
+            <th scope="col">Total</th>
+        </tr>
+        </thead>
+        <tbody>
+        {% for p in order.orderDetails %}
+        <tr>
+
+            <td>{{ p.product }}</td>
+            <td>{{ p.quantityt }}</td>
+            <td>{{ (p.price)*10 }}</td>
+            <td>{{( p.total)*10 }}</td>
+        </tr>
+        {% endfor %}
+        </tbody>
+    </table>
+
+    <div class="text-right">
+        <strong>
+            Sous-total :
+        </strong>{{ (order.getTotal())*10}}TND<br/>
+        <strong>
+            Livraison :</strong>{{ order.carrierPrice/100 }}TND
+        <br/>
+        <strong>
+           Total :
+        </strong>{{ (order.carrierPrice+(order.getTotal())*10) }}TND
+
+    </div>
+{% endblock %}

@@ -1,0 +1,50 @@
+{% extends 'base.html.twig' %}
+{% block carousel %} {% endblock  %}
+{% block content %}
+
+    <!-- Three columns of text below the carousel -->
+    <h3>Nos meilleure produits </h3>
+   <div class="row">
+       {% for product in products%}
+       <div class="col-md-3">
+           {% include 'product/best_product.html.twig' %}
+       </div>
+       {% endfor %}
+     </div><!-- /.row -->
+
+
+    <!-- START THE FEATURETTES -->
+
+     <hr class="featurette-divider">
+
+     <div class="row featurette">
+         <div class="col-md-7">
+             <h3 class="featurette-heading">Régime pour les diabétiques <span class="text-muted">Proposé par notre nutritionniste</span></h3s>
+             <p class="lead">Nos nutritionnistes s'efforcent de créer le plan de diabète le plus approprié pour vous.</p>
+         </div>
+         <div class="col-md-5">
+            <img src="{{asset('assets/img/aa1.jpg')}}"  width="400" height="400" alt="Régime pour les diabétiques ">
+         </div>
+     </div>
+
+     <hr class="featurette-divider">
+
+     <div class="row featurette">
+         <div class="col-md-7 order-md-2">
+             <h3 class="featurette-heading">disponibilité 24h/24h <span class="text-muted">Avec un équipe passioné et motivée.</span></h3>
+             <p class="lead">Acheter votre produits à tous moments nous sommes disponible 24h/24h les prodits serons livrée maximum en 48h</p>
+         </div>
+         <div class="col-md-5 order-md-1">
+             <img src="{{asset('assets/img/aa2.jpg')}}"  width="400" height="400" alt="disponibilité ">
+         </div>
+     </div>
+
+     <hr class="featurette-divider">
+
+    
+     
+
+    <!-- /END THE FEATURETTES -->
+
+{% endblock %}
+

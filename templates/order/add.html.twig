@@ -1,0 +1,73 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}Paiement !{% endblock %}
+
+{% block content %}
+    <br/>
+    <h2> Mon récapulatif</h2>
+    <p>Vérifier vos informations avant de payer.</p>
+    <hr>
+    <div class="row">
+        <div class="col-md-6">
+
+            <strong>
+                Mon adresse de livraison
+            </strong><br/>
+            <div class="form-check mt-4">
+            {{ delivery|raw }}</div>
+            <hr>
+            <strong>
+                Mon transporteur
+            </strong>
+            <div class="form-check">
+            {{ carrier.name }}<br/>
+            {{ carrier.description }}<br/>
+            {{ carrier.price}}TND
+        </div>
+
+        </div>
+        <div class="col-md-6">
+            <div class="text-center">
+                <b>Ma commande</b>
+
+            </div>
+            <div class="order-sumary">
+                {% set total = null %}
+                {% for key,p in cart%}
+                    <div class="row {% if key>0 %}mt-2 {% endif %}">
+                        <div class="col-3">
+                            <img src="/uploads/{{ p.product.illustration }}" alt="{{ p.product.name }}" height="75px">
+                        </div>
+                        <div class="col-5 my-auto">
+                            {{ p.product.name }}
+                            <br/>
+                            <small>  x{{ p.quantity  }}</small>
+
+                        </div>
+                        <div class="col-2 my-auto">
+                            {{ ((p.product.price*10*p.quantity )) }}TND
+
+                        </div>
+                    </div>
+                    {% set total =total+(p.product.price*p.quantity) %}
+                {% endfor%}
+
+            </div>
+
+            <hr>
+            <strong>
+                Sous-Total :{{(total)*10 }}TND
+            </strong><br/>
+            <strong>
+               Livraison :{{(carrier.price) }}TND
+            </strong><hr>
+            <strong>
+               Total : {{((total*10)+carrier.price) }}TND
+            </strong>
+           
+            <a type="button" href="{{ path('product')}}"  class="btn btn-success btn-block" data-container="body" data-toggle="popover" data-placement="top" data-content="Commande valide.ELLE sera livrés en 48h">
+              Confirmer 
+             </a>
+        </div>
+    </div>
+{% endblock %}
